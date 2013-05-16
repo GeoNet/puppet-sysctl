@@ -23,7 +23,7 @@ define sysctl::value (
 
   $unless = $::kernel ? {
     openbsd => "sysctl ${real_key} | grep -q '=${val1}\$'",
-    default => "sysctl ${real_key} | grep -q ' = ${val1}'",
+    default => "grep ${real_key} /etc/sysctl.conf | tail -n 1 | tr -d ' ' | grep -q '=${val1}'",
   }
 
   exec { "exec_sysctl_${real_key}" :
@@ -32,3 +32,4 @@ define sysctl::value (
       require => Sysctl[$real_key],
   }
 }
+
