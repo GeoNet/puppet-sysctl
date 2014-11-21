@@ -5,7 +5,7 @@ define sysctl::value (
 ) {
 
   $array = split($value,'[\s\t]')
-  $val1 = inline_template("<%= array.delete_if(&:empty?).flatten.join(\"\t\") %>")
+  $val1 = inline_template("<%= @array.delete_if(&:empty?).flatten.join(\"\t\") %>")
 
   $suppress_flag = $suppress ? {
     true    => '-e',
